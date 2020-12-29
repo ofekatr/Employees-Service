@@ -2,27 +2,36 @@ import { IEmployee } from "models/employees";
 import EmployeesAccessLayer from "../../db/access-layers/employees";
 
 const createtEmployee = (req, res) => {
-    const newEmployee: IEmployee = req.body;
-    EmployeesAccessLayer.createtEmployee(newEmployee);
-    res.send(true);
-}
+    const i_Employee: IEmployee = req.body;
+    const createdEmployee = EmployeesAccessLayer.createtEmployee(i_Employee);
+    res.json({
+        data: createdEmployee,
+    });
+};
 
 const updateEmployee = (req, res) => {
     const { id } = req.params;
-    const updatedEmployee: IEmployee = req.body;
-    EmployeesAccessLayer.updateEmployee(id, updatedEmployee);
-    res.send(true);
-}
+    const i_Employee: IEmployee = req.body;
+    const updatedEmployee = EmployeesAccessLayer.updateEmployee(id, i_Employee);
+    res.json({
+        data: updatedEmployee,
+    });
+};
 
 const readEmployee = (req, res) => {
     const { id } = req.params;
-    res.json(EmployeesAccessLayer.readEmployee(id));
-}
+    const employee = EmployeesAccessLayer.readEmployee(id);
+    res.json({
+        data: employee,
+    });
+};
 
 const deleteEmployee = (req, res) => {
     const { id } = req.params;
-    EmployeesAccessLayer.deleteEmployee(id);
-    res.send(true);
+    const deletedEmployee = EmployeesAccessLayer.deleteEmployee(id);
+    res.json({
+        data: deletedEmployee,
+    });
 }
 
 export default {

@@ -10,10 +10,6 @@ const apiPath = `/api/v${API_V}`;
 
 const router = express.Router();
 
-// const { TestMW } = require('../middlewares');
-
-// router.use([morgan('tiny'), express.json(), TestMW]);
-
 router.use(express.json());
 
 router.use(morgan("tiny"));
