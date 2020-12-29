@@ -1,6 +1,9 @@
+require("dotenv").config();
 import express from "express";
 
-const PORT = 4000;
+const defPort = 4000;
+
+const { PORT = defPort } = process.env;
 
 const app = express();
 
