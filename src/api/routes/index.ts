@@ -3,10 +3,11 @@ import { Router } from "express";
 import ApiRouter from "./api";
 // const apiErrorHandler = require('../middlewares/error-handlers');
 
-const { API_V  } = process.env;
-const versionUrl = API_V ? `v${API_V}` : "";
+const defApiVersion = "0.1";
+const { API_V = defApiVersion  } = process.env;
+const apiPath = `/api/v${API_V}`;
+
 const router = Router();
-const apiPath = `/api/${versionUrl}`;
 
 // const { TestMW } = require('../middlewares');
 
