@@ -1,4 +1,5 @@
 import express from "express";
+import morgan from "morgan";
 
 import ApiRouter from "./api";
 // const apiErrorHandler = require('../middlewares/error-handlers');
@@ -14,6 +15,8 @@ const router = express.Router();
 // router.use([morgan('tiny'), express.json(), TestMW]);
 
 router.use(express.json());
+
+router.use(morgan("tiny"));
 
 router.use(`${apiPath}`, ApiRouter);
 
