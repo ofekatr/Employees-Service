@@ -4,7 +4,7 @@ import cors from "cors";
 
 import router from "./api/routes";
 
-const defPort = 4000;
+const defPort = 8080;
 
 const { PORT = defPort } = process.env;
 

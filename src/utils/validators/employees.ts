@@ -1,17 +1,3 @@
-import { IEmployeeData } from "models/employees";
-
-function extractEmployeeFields(i_Employee: IEmployeeData) {
-    const employee = {
-        fullName: i_Employee.fullName,
-        age: i_Employee.age,
-        email: i_Employee.email,
-        phone: i_Employee.phone
-    }
-
-    return Array.from(Object.keys(employee)).every((key) => employee[key] !== undefined)
-        ? employee : undefined;
-}
-
 function validateEmail(email: string) {
     return typeof email === "string" && email.length > 0;
 }
@@ -29,7 +15,6 @@ function validateFullName(fullName: string) {
 }
 
 const validateEmployeeData = (i_Employee) => {
-    i_Employee = extractEmployeeFields(i_Employee);
     if (!i_Employee) return false;
     const { fullName, age, email, phone } = i_Employee;
     if (!validateFullName(fullName) || !validateAge(age)
@@ -41,4 +26,4 @@ const validateEmployeeData = (i_Employee) => {
 
 export {
     validateEmployeeData
-}
+};

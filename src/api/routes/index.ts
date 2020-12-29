@@ -2,7 +2,8 @@ import express from "express";
 import morgan from "morgan";
 
 import ApiRouter from "./api";
-// const apiErrorHandler = require('../middlewares/error-handlers');
+import errorsMiddleware from "../middlewares/error-handling";
+import notFoundMiddleware from "../middlewares/not-found";
 
 const defApiVersion = "0.1";
 const { API_V = defApiVersion  } = process.env;
@@ -16,6 +17,8 @@ router.use(morgan("tiny"));
 
 router.use(`${apiPath}`, ApiRouter);
 
-// router.use(apiErrorHandler);
+router.use(notFoundMiddleware);
+
+router.use(errorsMiddleware);
 
 export default router;

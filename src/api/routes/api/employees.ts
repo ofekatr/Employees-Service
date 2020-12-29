@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import EmployeesController from "../../controllers/employees";
+import EmployeesController from "../../resolvers/employees";
 
 const router = Router();
 
