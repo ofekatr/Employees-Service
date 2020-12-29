@@ -1,18 +1,21 @@
-import { IEmployee } from "models/employees";
+import shortid from "shortid";
+
+import { IEmployee, IEmployeeData } from "models/employees";
 
 const employees: Map<number, IEmployee> = new Map();
 
-const createtEmployee = (i_Employee: IEmployee) => {
-    const { id } = i_Employee;
-    employees.set(id, i_Employee);
+const createtEmployee = (i_Employee: IEmployeeData) => {
+    const id = shortid.generate();
+    employees.set(id, { id, ...i_Employee });
     return employees.get(id);
-};
-const updateEmployee = (i_Id: number, i_Employee: IEmployee) => {
-    employees.set(i_Id, i_Employee);
-    return employees.get(i_Id);
 };
 
 const readEmployee = (i_Id: number) => employees.get(i_Id);
+
+const updateEmployee = (i_Id: number, i_Employee: IEmployeeData) => {
+    employees.set(i_Id, { id: i_Id, ...i_Employee });
+    return employees.get(i_Id);
+};
 
 const deleteEmployee = (i_Id: number) => {
     const deletedEmployee = employees.get(i_Id);
