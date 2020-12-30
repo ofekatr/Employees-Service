@@ -13,6 +13,10 @@ export class ApiError {
     public static EmployeeNotFoundError() {
         return new ApiError(601, "The employee does not exist.");
     }
+
+    public static InvalidEmployeeId() {
+        return new ApiError(602, "This employee id is invalid.");
+    }
 }
 
 export class ApiInputError extends ApiError {
