@@ -5,10 +5,9 @@ const defMessage = "An error has occured.";
 
 export default (err, _, res, __) => {
     if (err instanceof ApiError) {
-        const { status, message } = err;
-        res.status(status).json({
+        res.status(err.status).json({
             error: {
-                message
+                ...err
             }
         });
         return;

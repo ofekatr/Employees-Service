@@ -6,5 +6,5 @@ export interface IEmployeeData {
 }
 
 export interface IEmployee extends IEmployeeData {
-    id: number;
+    id: string;
 }

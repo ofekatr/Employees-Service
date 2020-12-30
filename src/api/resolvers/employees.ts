@@ -1,15 +1,17 @@
+import _ from "lodash";
+
 import { IEmployeeData } from "../../models/employees";
-import { validateEmployeeData } from "../../utils/validators/employees";
+import { validateCreateEmployeeData, validateUpdateEmployeeData } from "../../utils/validators/employees";
 import EmployeesAccessLayer from "../../db/access-layers/employees";
-import { extractEmployeeData } from "../../utils/types";
-import { ApiError } from "../../models/api-error";
-import { exception } from "console";
+import { extractEmployeeData } from "../../utils/type-utils/employees";
+import { ApiError, ApiInputError } from "../../models/api-error";
 
 const createtEmployee = (req, res, next) => {
     try {
         const i_Employee: IEmployeeData = extractEmployeeData(req.body);
-        if (!validateEmployeeData(i_Employee)) {
-            throw ApiError.InvalidEmployeeDataError();
+        const errors = validateCreateEmployeeData(i_Employee);
+        if (!_.isEmpty(errors)) {
+            throw new ApiInputError(errors);
         }
         const createdEmployee = EmployeesAccessLayer.createtEmployee(i_Employee);
         res.json({
@@ -22,13 +24,15 @@ const createtEmployee = (req, res, next) => {
 
 const updateEmployee = (req, res, next) => {
     try {
-        const id = parseInt(req.params.id);
-        if (isNaN(id)) {
-            throw ApiError.InvalidEmployeeId();
-        }
+        const { id } = req.params;
         const i_Employee: IEmployeeData = extractEmployeeData(req.body);
-        if (!validateEmployeeData(i_Employee)) {
-            throw ApiError.InvalidEmployeeDataError();
+        console.log(i_Employee);
+        const errors = validateUpdateEmployeeData(i_Employee);
+        if (!_.isEmpty(errors)) {
+            throw new ApiInputError(errors);
+        }
+        if (!EmployeesAccessLayer.employeeExists(id)) {
+            throw ApiError.EmployeeNotFoundError();
         }
         const updatedEmployee = EmployeesAccessLayer.updateEmployee(id, i_Employee);
         res.json({
@@ -41,10 +45,7 @@ const updateEmployee = (req, res, next) => {
 
 const readEmployee = (req, res, next) => {
     try {
-        const id = parseInt(req.params.id);
-        if (isNaN(id)) {
-            throw ApiError.InvalidEmployeeId();
-        }
+        const { id } = req.params;
         const employee = EmployeesAccessLayer.readEmployee(id);
         if (!employee) {
             throw ApiError.EmployeeNotFoundError();
@@ -60,9 +61,6 @@ const readEmployee = (req, res, next) => {
 const deleteEmployee = (req, res, next) => {
     try {
         const { id } = req.params;
-        if (isNaN(id)) {
-            throw ApiError.InvalidEmployeeId();
-        }
         const deletedEmployee = EmployeesAccessLayer.deleteEmployee(id);
         if (!deletedEmployee) {
             throw ApiError.EmployeeNotFoundError();
