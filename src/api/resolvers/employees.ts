@@ -12,7 +12,7 @@ const createtEmployee = (req, res, next) => {
             data: createdEmployee,
         });
     } else {
-        return next(new ApiError(500, "An error has occured."));
+        return next(ApiError.InvalidEmployeeDataError());
     }
 };
 
@@ -25,7 +25,7 @@ const updateEmployee = (req, res, next) => {
             data: updatedEmployee,
         });
     } else {
-        return next(new ApiError(500, "An error has occured."));
+        return next(ApiError.InvalidEmployeeDataError());
     }
 };
 
@@ -38,7 +38,7 @@ const readEmployee = (req, res, next) => {
         });
     }
     else {
-        return next(new ApiError(500, "An error has occured."));
+        return next(ApiError.EmployeeNotFoundError());
     }
 };
 
@@ -50,7 +50,7 @@ const deleteEmployee = (req, res, next) => {
             data: deletedEmployee,
         });
     } else {
-        return next(new ApiError(500, "An error has occured."));
+        return next(ApiError.EmployeeNotFoundError());
     }
 }
 

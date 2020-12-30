@@ -1,7 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 
-import ApiRouter from "./api";
+import ApiRouterV0_1 from "./api/v0.1";
 import errorsMiddleware from "../middlewares/error-handling";
 import notFoundMiddleware from "../middlewares/not-found";
 
@@ -15,7 +15,7 @@ router.use(express.json());
 
 router.use(morgan("tiny"));
 
-router.use(`${apiPath}`, ApiRouter);
+router.use(`${apiPath}`, ApiRouterV0_1);
 
 router.use(notFoundMiddleware);
 
