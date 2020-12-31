@@ -46,7 +46,6 @@ const updateEmployee = (req, res, next) => {
     try {
         const { id } = req.params;
         const i_Employee: IEmployeeData = extractEmployeeData(req.body);
-        console.log(i_Employee);
         const errors = validateUpdateEmployeeData(i_Employee);
 
         // If the employee data is invalid.
