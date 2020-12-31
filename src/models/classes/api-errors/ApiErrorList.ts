@@ -17,7 +17,7 @@ export class ApiErrorList extends BaseApiError {
 
     // Error for invalid fields in employee data.
     public static InvalidEmployeeDataError(i_Errors: string[]) {
-        const errorData = ErrorDataMap.get(ErrorType.INVALID_EMPLOYEE_ID)!;
+        const errorData = ErrorDataMap.get(ErrorType.INVALID_EMPLOYEE_DATA)!;
         return new ApiErrorList(errorData, i_Errors)
     }
 }
