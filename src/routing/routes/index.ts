@@ -8,10 +8,13 @@ import morgan from "morgan";
 import ApiRouterV0_1 from "./api/v0.1";
 import errorsMiddleware from "../middlewares/error-handling";
 import notFoundMiddleware from "../middlewares/not-found";
+import serverConfig from "../../configs/ServerConfig.json";
 
 const defApiVersion = "0.1";
-const { API_V = defApiVersion } = process.env;
-const apiPath = `/api/v${API_V}`;
+const { apiVersion = defApiVersion } = serverConfig;
+const apiPath = `/api/v${apiVersion}`;
+
+console.log(apiPath);
 
 const router = express.Router();
 
