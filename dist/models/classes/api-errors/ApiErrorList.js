@@ -13,7 +13,7 @@ class ApiErrorList extends ApiError_1.BaseApiError {
         this.errors = i_Errors;
     }
     static InvalidEmployeeDataError(i_Errors) {
-        const errorData = api_errors_1.default.get(api_errors_2.ErrorType.INVALID_EMPLOYEE_ID);
+        const errorData = api_errors_1.default.get(api_errors_2.ErrorType.INVALID_EMPLOYEE_DATA);
         return new ApiErrorList(errorData, i_Errors);
     }
 }
