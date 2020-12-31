@@ -2,7 +2,7 @@ require("dotenv").config();
 import express from "express";
 import cors from "cors";
 
-import router from "./api/routes";
+import router from "./routing/routes";
 
 const defPort = 8080;
 

@@ -1,4 +1,4 @@
-import { removeUndefinedProperties } from "../objects";
+import { removeUndefinedProperties } from "./objects";
 
 export const extractEmployeeData = ({ fullName, email, age, phone }) => {
     const employee = { fullName, email, age, phone };
