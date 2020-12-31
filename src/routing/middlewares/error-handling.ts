@@ -2,7 +2,7 @@
  * Error handling middleware.
  */
 
-import { BaseApiError } from "../../models/api-errors/ApiError";
+import { BaseApiError } from "../../models/classes/api-errors/ApiError";
 
 const defStatus = 500;
 const defMessage = "An error has occured on the server.";

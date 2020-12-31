@@ -8,8 +8,8 @@ import { IEmployeeData } from "../../models/employees";
 import { validateCreateEmployeeData, validateUpdateEmployeeData } from "../../utils/validators/employees";
 import EmployeesAccessLayer from "../../db/access-layers/employees";
 import { extractEmployeeData } from "../../utils/type-utils/employees";
-import { BaseApiError } from "../../models/api-errors/ApiError";
-import { ApiErrorList } from "models/api-errors/ApiErrorList";
+import { BaseApiError } from "../../models/classes/api-errors/ApiError";
+import { ApiErrorList } from "../../models/classes/api-errors/ApiErrorList";
 
 /**
  * Resolver for creating a new employee.
