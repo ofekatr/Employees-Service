@@ -29,7 +29,6 @@ const updateEmployee = (req, res, next) => {
     try {
         const { id } = req.params;
         const i_Employee = employees_3.extractEmployeeData(req.body);
-        console.log(i_Employee);
         const errors = employees_1.validateUpdateEmployeeData(i_Employee);
         if (!lodash_1.default.isEmpty(errors)) {
             throw ApiErrorList_1.ApiErrorList.InvalidEmployeeDataError(errors);
