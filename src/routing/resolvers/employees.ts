@@ -1,18 +1,32 @@
+/**
+ * Employees API resolvers.
+ */
+
 import _ from "lodash";
 
 import { IEmployeeData } from "../../models/employees";
 import { validateCreateEmployeeData, validateUpdateEmployeeData } from "../../utils/validators/employees";
 import EmployeesAccessLayer from "../../db/access-layers/employees";
 import { extractEmployeeData } from "../../utils/type-utils/employees";
-import { ApiError, ApiInputError } from "../../models/api-error";
+import { BaseApiError } from "../../models/api-errors/ApiError";
+import { ApiErrorList } from "models/api-errors/ApiErrorList";
 
+/**
+ * Resolver for creating a new employee.
+ * @param req The request object.
+ * @param res The response object
+ * @param next The next resolver function.
+ */
 const createtEmployee = (req, res, next) => {
     try {
         const i_Employee: IEmployeeData = extractEmployeeData(req.body);
         const errors = validateCreateEmployeeData(i_Employee);
+
+        // If the employee data is invalid.
         if (!_.isEmpty(errors)) {
-            throw new ApiInputError(errors);
+            throw ApiErrorList.InvalidEmployeeDataError(errors);
         }
+
         const createdEmployee = EmployeesAccessLayer.createtEmployee(i_Employee);
         res.json({
             data: createdEmployee,
@@ -22,18 +36,29 @@ const createtEmployee = (req, res, next) => {
     }
 };
 
+/**
+ * Resolver for updating an existing employee by id.
+ * @param req The request object.
+ * @param res The response object
+ * @param next The next resolver function.
+ */
 const updateEmployee = (req, res, next) => {
     try {
         const { id } = req.params;
         const i_Employee: IEmployeeData = extractEmployeeData(req.body);
         console.log(i_Employee);
         const errors = validateUpdateEmployeeData(i_Employee);
+
+        // If the employee data is invalid.
         if (!_.isEmpty(errors)) {
-            throw new ApiInputError(errors);
+            throw ApiErrorList.InvalidEmployeeDataError(errors);
         }
+
+        // If the employee does not exist.
         if (!EmployeesAccessLayer.employeeExists(id)) {
-            throw ApiError.EmployeeNotFoundError();
+            throw BaseApiError.EmployeeNotFoundError();
         }
+
         const updatedEmployee = EmployeesAccessLayer.updateEmployee(id, i_Employee);
         res.json({
             data: updatedEmployee,
@@ -43,13 +68,22 @@ const updateEmployee = (req, res, next) => {
     }
 };
 
+/**
+ * Resolver for getting an existing employee by id.
+ * @param req The request object.
+ * @param res The response object
+ * @param next The next resolver function.
+ */
 const readEmployee = (req, res, next) => {
     try {
         const { id } = req.params;
         const employee = EmployeesAccessLayer.readEmployee(id);
+
+        // If the employee does not exist.
         if (!employee) {
-            throw ApiError.EmployeeNotFoundError();
+            throw BaseApiError.EmployeeNotFoundError();
         }
+
         res.json({
             data: employee,
         });
@@ -58,12 +92,18 @@ const readEmployee = (req, res, next) => {
     }
 };
 
+/**
+ * Resolver for deleting an existing employee by id.
+ * @param req The request object.
+ * @param res The response object
+ * @param next The next resolver function.
+ */
 const deleteEmployee = (req, res, next) => {
     try {
         const { id } = req.params;
         const deletedEmployee = EmployeesAccessLayer.deleteEmployee(id);
         if (!deletedEmployee) {
-            throw ApiError.EmployeeNotFoundError();
+            throw BaseApiError.EmployeeNotFoundError();
         }
         res.json({
             data: deletedEmployee,

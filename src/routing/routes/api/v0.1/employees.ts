@@ -1,19 +1,23 @@
+/**
+ * Employees API Router.
+ */
+
 import { Router } from "express";
 
-import EmployeesController from "../../../resolvers/employees";
+import EmployeesResolver from "../../../resolvers/employees";
 
 const router = Router();
 
-// const RestaurantsController = require('../../controllers/restaurants');
+// Create a new employee.
+router.post("/", EmployeesResolver.createtEmployee);
 
-// Handle request to /v/employees
+// Get an existing employee via its id.
+router.get("/:id", EmployeesResolver.readEmployee);
 
-router.post("/", EmployeesController.createtEmployee);
+// Update an existing employee via its id.
+router.put("/:id", EmployeesResolver.updateEmployee);
 
-router.get("/:id", EmployeesController.readEmployee);
-
-router.put("/:id", EmployeesController.updateEmployee);
-
-router.delete("/:id", EmployeesController.deleteEmployee);
+// Delete an existing employee via its id.
+router.delete("/:id", EmployeesResolver.deleteEmployee);
 
 export default router;

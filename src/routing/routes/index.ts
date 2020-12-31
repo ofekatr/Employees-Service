@@ -1,3 +1,7 @@
+/**
+ * Router definition.
+ */
+
 import express from "express";
 import morgan from "morgan";
 
@@ -6,19 +10,24 @@ import errorsMiddleware from "../middlewares/error-handling";
 import notFoundMiddleware from "../middlewares/not-found";
 
 const defApiVersion = "0.1";
-const { API_V = defApiVersion  } = process.env;
+const { API_V = defApiVersion } = process.env;
 const apiPath = `/api/v${API_V}`;
 
 const router = express.Router();
 
+// Access to body arguments.
 router.use(express.json());
 
+// Log received requests.
 router.use(morgan("tiny"));
 
+// API Routing with the current available versions.
 router.use(`${apiPath}`, ApiRouterV0_1);
 
+// Routing for non existing resources.
 router.use(notFoundMiddleware);
 
+// Error handling.
 router.use(errorsMiddleware);
 
 export default router;

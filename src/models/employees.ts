@@ -1,3 +1,7 @@
+/**
+ * Employee related interfaces
+ */
+
 export interface IEmployeeData {
     fullName: string;
     age: number;
